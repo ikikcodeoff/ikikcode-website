@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IkiKCode — Elias Benikiker</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(8px);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .logo span {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      border-radius: 8px;
+      font-size: 1rem;
+      padding: 4px 10px;
+      font-weight: 800;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover {
+      opacity: 0.7;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #eee;
+    }
+
+    p {
+      color: #ccc;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .project-list li {
+      margin: 0.5rem 0;
+      list-style: none;
+      background: #111;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      border: 1px solid #1a1a1a;
+    }
+
+    .paypal {
+      background: #1a1a1a;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid #222;
+    }
+
+    .paypal button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 0.8rem 1.6rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .paypal button:hover {
+      background: #ddd;
+      transform: translateY(-2px);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    input, textarea {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 10px;
+      color: #fff;
+      padding: 0.9rem;
+      font-size: 1rem;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #555;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button.send {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 0.9rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button.send:hover {
+      background: #ccc;
+      transform: translateY(-2px);
+    }
+
+    .status {
+      text-align: center;
+      font-weight: 600;
+      margin-top: 0.8rem;
+    }
+
+    .success { color: #0f0; }
+    .error { color: #f33; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      background: #0a0a0a;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="#" class="logo"><span>IK</span> IkiKCode</a>
+    <nav>
+      <a href="#about">À propos</a>
+      <a href="#projects">Projets</a>
+      <a href="#skills">Compétences</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h1>Bienvenue sur IkiKCode</h1>
+    <p>Je suis <strong>Elias Benikiker</strong>, développeur passionné par la création de solutions logicielles simples, efficaces et esthétiques. Je conçois des sites, applications et projets sur mesure pour particuliers et entreprises.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projets récents</h2>
+    <ul class="project-list">
+      <li>Techn301 — plateforme de gestion scolaire intuitive.</li>
+      <li>SurNotes — calculateur de notes automatique.</li>
+      <li>TextEditor — éditeur web minimaliste.</li>
+      <li>MiniGame — petit jeu JavaScript amusant.</li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <h2>Compétences principales</h2>
+    <p>HTML, CSS, JavaScript, Supabase, Node.js, et développement front-end complet.</p>
+  </section>
+
+  <section class="paypal">
+    <h2>Soutenir IkiKCode</h2>
+    <p>Tu peux contribuer à mes projets via PayPal. Chaque don aide à faire grandir IkiKCode.</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="hosted_button_id" value="MV89QT9SZUZDN" />
+      <button type="submit">Faire un don</button>
+    </form>
+  </section>
+
+  <section id="contact">
+    <h2>Contact / Projet</h2>
+    <p>Envie de me confier un projet ou de collaborer ? Envoie-moi un message :</p>
+    <form id="contact-form">
+      <input type="text" id="name" name="name" placeholder="Ton nom" required />
+      <input type="email" id="email" name="email" placeholder="Ton email" required />
+      <input type="text" id="subject" name="subject" placeholder="Sujet" required />
+      <textarea id="message" name="message" placeholder="Ton message..." required></textarea>
+      <button type="submit" class="send">Envoyer</button>
+      <div id="form-status" class="status"></div>
+    </form>
+  </section>
+
+  <footer>
+    © 2025 IkiKCode — Elias Benikiker. Tous droits réservés.
+  </footer>
+
+  <script>
+    (function() {
+      emailjs.init("ph8J-e3J4qrubSfyG");
+    })();
+
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      status.textContent = "Envoi en cours...";
+      status.className = "status";
+
+      const params = {
+        name: form.name.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value
+      };
+
+      emailjs.send("service_aw8mbwd", "template_a386pt2", params)
+        .then(() => {
+          status.textContent = "✅ Message envoyé avec succès !";
+          status.classList.add("success");
+          form.reset();
+        })
+        .catch((error) => {
+          status.textContent = "❌ Erreur lors de l'envoi. Réessaye plus tard.";
+          status.classList.add("error");
+          console.error("EmailJS error:", error);
+        });
+    });
+  </script>
+</body>
+</html>
