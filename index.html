@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IkiKCode — Elias Benikiker</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <title>Maintenance — IkiKCode</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
     body {
       background: #0a0a0a;
       color: #fff;
@@ -33,7 +37,7 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       font-weight: 800;
       font-size: 1.4rem;
       color: #fff;
@@ -62,115 +66,55 @@
       opacity: 0.7;
     }
 
-    section {
-      padding: 5rem 2rem;
-      max-width: 1000px;
-      margin: auto;
+    main {
+      padding: 6rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 80vh;
+      animation: fadeIn 1s ease-in-out;
     }
 
-    h1, h2 {
-      font-weight: 700;
-      margin-bottom: 1rem;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    img {
+      width: 100px;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
     }
 
     h1 {
       font-size: 2.2rem;
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      color: #eee;
+      font-weight: 700;
+      margin-bottom: 1rem;
     }
 
     p {
       color: #ccc;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-
-    .project-list li {
-      margin: 0.5rem 0;
-      list-style: none;
-      background: #111;
-      padding: 0.8rem 1rem;
-      border-radius: 10px;
-      border: 1px solid #1a1a1a;
-    }
-
-    .paypal {
-      background: #1a1a1a;
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      border: 1px solid #222;
-    }
-
-    .paypal button {
-      background: #fff;
-      color: #000;
-      border: none;
-      padding: 0.8rem 1.6rem;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .paypal button:hover {
-      background: #ddd;
-      transform: translateY(-2px);
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    input, textarea {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 10px;
-      color: #fff;
-      padding: 0.9rem;
-      font-size: 1rem;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #555;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    button.send {
-      background: #fff;
-      color: #000;
-      border: none;
-      padding: 0.9rem;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    button.send:hover {
-      background: #ccc;
-      transform: translateY(-2px);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
     }
 
     .status {
-      text-align: center;
-      font-weight: 600;
-      margin-top: 0.8rem;
+      background: #111;
+      border: 1px solid #1a1a1a;
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 600px;
+      text-align: left;
+      color: #ddd;
+      line-height: 1.6;
     }
 
-    .success { color: #0f0; }
-    .error { color: #f33; }
+    .status strong {
+      color: #fff;
+    }
 
     footer {
       text-align: center;
@@ -181,9 +125,9 @@
       background: #0a0a0a;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width: 700px) {
+      h1 { font-size: 1.8rem; }
+      p, .status { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -192,92 +136,25 @@
   <header>
     <a href="#" class="logo"><span>IK</span> IkiKCode</a>
     <nav>
-      <a href="#about">À propos</a>
-      <a href="#projects">Projets</a>
-      <a href="#skills">Compétences</a>
-      <a href="#contact">Contact</a>
+      <a href="#">Accueil</a>
+      <a href="#">Projets</a>
+      <a href="#">Contact</a>
     </nav>
   </header>
 
-  <section id="about">
-    <h1>Bienvenue sur IkiKCode</h1>
-    <p>Je suis <strong>Elias Benikiker</strong>, développeur passionné par la création de solutions logicielles simples, efficaces et esthétiques. Je conçois des sites, applications et projets sur mesure pour particuliers et entreprises.</p>
-  </section>
-
-  <section id="projects">
-    <h2>Projets récents</h2>
-    <ul class="project-list">
-      <li>Techn301 — plateforme de gestion scolaire intuitive.</li>
-      <li>SurNotes — calculateur de notes automatique.</li>
-      <li>TextEditor — éditeur web minimaliste.</li>
-      <li>MiniGame — petit jeu JavaScript amusant.</li>
-    </ul>
-  </section>
-
-  <section id="skills">
-    <h2>Compétences principales</h2>
-    <p>HTML, CSS, JavaScript, Supabase, Node.js, et développement front-end complet.</p>
-  </section>
-
-  <section class="paypal">
-    <h2>Soutenir IkiKCode</h2>
-    <p>Tu peux contribuer à mes projets via PayPal. Chaque don aide à faire grandir IkiKCode.</p>
-    <form action="https://www.paypal.com/donate" method="post" target="_blank">
-      <input type="hidden" name="hosted_button_id" value="MV89QT9SZUZDN" />
-      <button type="submit">Faire un don</button>
-    </form>
-  </section>
-
-  <section id="contact">
-    <h2>Contact / Projet</h2>
-    <p>Envie de me confier un projet ou de collaborer ? Envoie-moi un message :</p>
-    <form id="contact-form">
-      <input type="text" id="name" name="name" placeholder="Ton nom" required />
-      <input type="email" id="email" name="email" placeholder="Ton email" required />
-      <input type="text" id="subject" name="subject" placeholder="Sujet" required />
-      <textarea id="message" name="message" placeholder="Ton message..." required></textarea>
-      <button type="submit" class="send">Envoyer</button>
-      <div id="form-status" class="status"></div>
-    </form>
-  </section>
+  <main>
+    <img src="logo.png" alt="Logo IkiKCode">
+    <h1>Maintenance en cours</h1>
+    <p>Le site est temporairement indisponible en raison d’un problème technique lié à notre service d’envoi de messages.</p>
+    <div class="status">
+      ⚠️ <strong>Cause :</strong> AWS bloque actuellement certaines requêtes JavaScript sortantes, ce qui empêche la transmission des messages depuis le formulaire de contact.<br><br>
+      🔧 <strong>Action :</strong> Je travaille à une alternative pour rétablir le système d’envoi dès que possible.<br><br>
+      🕒 <strong>Retour prévu :</strong> dès que le service AWS autorise de nouveau les connexions nécessaires.
+    </div>
+  </main>
 
   <footer>
     © 2025 IkiKCode — Elias Benikiker. Tous droits réservés.
   </footer>
-
-  <script>
-    (function() {
-      emailjs.init("ph8J-e3J4qrubSfyG");
-    })();
-
-    const form = document.getElementById("contact-form");
-    const status = document.getElementById("form-status");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      status.textContent = "Envoi en cours...";
-      status.className = "status";
-
-      const params = {
-        name: form.name.value,
-        email: form.email.value,
-        subject: form.subject.value,
-        message: form.message.value
-      };
-
-      emailjs.send("service_aw8mbwd", "template_a386pt2", params)
-        .then(() => {
-          status.textContent = "✅ Message envoyé avec succès !";
-          status.classList.add("success");
-          form.reset();
-        })
-        .catch((error) => {
-          status.textContent = "❌ Erreur lors de l'envoi. Réessaye plus tard.";
-          status.classList.add("error");
-          console.error("EmailJS error:", error);
-        });
-    });
-  </script>
 </body>
 </html>
