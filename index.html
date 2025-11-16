@@ -1,173 +1,167 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maintenance — IkiKCode</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IkiKCode — Elias Benikiker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<style>
+:root {
+  --bg:#050505;
+  --glass:rgba(255,255,255,0.08);
+  --accent:#b4ff80;
+  --muted:#ccc;
+  --maxw:1000px;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:#fff;overflow-x:hidden;line-height:1.6;}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
+.popup{
+  position:fixed;inset:0;display:flex;justify-content:center;align-items:center;
+  background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity 0.4s ease;z-index:3000;
+}
+.popup.active{opacity:1;pointer-events:all;}
+.popup-content{
+  background:var(--glass);padding:2rem 3rem;border-radius:20px;text-align:center;
+  max-width:600px;width:90%;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(12px);
+  transform:scale(0.95);transition:transform 0.4s ease;
+}
+.popup.active .popup-content{transform:scale(1);}
+.popup h2{color:var(--accent);font-size:1.5rem;margin-bottom:1rem;}
+.popup p{color:var(--muted);font-weight:500;}
+.popup button{margin-top:1.5rem;padding:0.8rem 1.6rem;border:none;border-radius:12px;background:#fff;color:#000;font-weight:700;cursor:pointer;transition:0.2s;}
+.popup button:hover{background:#ccc;transform:translateY(-2px);}
 
-    body {
-      background: #0a0a0a;
-      color: #fff;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+header{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%);
+  width:90%;max-width:var(--maxw);background:var(--glass);
+  backdrop-filter:blur(14px);border-radius:18px;padding:1rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 6px 30px rgba(0,0,0,0.4);z-index:2000;
+}
+.logo{font-weight:800;font-size:1.4rem;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px;}
+.logo span{background:#fff;color:#000;padding:4px 10px;border-radius:8px;font-weight:800;}
+nav a{color:#fff;text-decoration:none;margin-left:1.5rem;font-weight:500;transition:opacity 0.2s;}
+nav a:hover{opacity:0.6;}
 
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(10,10,10,0.9);
-      backdrop-filter: blur(8px);
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      z-index: 1000;
-    }
+main{padding-top:120px;max-width:var(--maxw);margin:auto;padding-left:20px;padding-right:20px;}
+section{margin:40px 0;opacity:0;transform:scale(0.97);transition:opacity 0.6s ease, transform 0.6s ease;}
+section.visible{opacity:1;transform:scale(1);}
+h1,h2{font-weight:700;margin-bottom:1rem;}
+h1{font-size:2.2rem;}
+h2{font-size:1.6rem;color:#eee;}
+p{color:var(--muted);margin-bottom:1rem;}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 1.4rem;
-      color: #fff;
-      text-decoration: none;
-    }
+.project-list{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.project-card{background:var(--glass);border-radius:16px;padding:1.5rem;border:1px solid rgba(255,255,255,0.15);
+backdrop-filter:blur(8px);box-shadow:0 10px 30px rgba(0,0,0,0.4);transition:transform 0.3s ease, box-shadow 0.3s ease;}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.5);}
+.project-card h3{color:var(--accent);margin-bottom:0.6rem;font-size:1.1rem;}
+.project-card p{color:var(--muted);font-size:0.95rem;}
 
-    .logo span {
-      display: inline-block;
-      background: #fff;
-      color: #000;
-      border-radius: 8px;
-      font-size: 1rem;
-      padding: 4px 10px;
-      font-weight: 800;
-    }
+form{display:flex;flex-direction:column;gap:12px;background:var(--glass);padding:2rem;border-radius:16px;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(8px);}
+input,textarea{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.9rem;color:#fff;font-size:1rem;}
+textarea{min-height:120px;resize:vertical;}
+button.send{background:#fff;color:#000;border:none;padding:0.9rem 1.6rem;border-radius:12px;cursor:pointer;font-weight:700;transition:0.2s;}
+button.send:hover{background:#ccc;transform:translateY(-2px);}
+.status{text-align:center;font-weight:600;margin-top:0.8rem;}
 
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
+footer{text-align:center;padding:2rem;color:#666;font-size:0.9rem;border-top:1px solid rgba(255,255,255,0.05);}
 
-    nav a:hover {
-      opacity: 0.7;
-    }
-
-    main {
-      padding: 6rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 80vh;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    img {
-      width: 100px;
-      margin-bottom: 1.5rem;
-      opacity: 0.9;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      color: #ccc;
-      max-width: 600px;
-      margin-bottom: 2rem;
-      font-size: 1.05rem;
-    }
-
-    .status {
-      background: #111;
-      border: 1px solid #1a1a1a;
-      border-radius: 12px;
-      padding: 1.5rem;
-      max-width: 600px;
-      text-align: left;
-      color: #ddd;
-      line-height: 1.6;
-    }
-
-    .status strong {
-      color: #fff;
-    }
-
-    .status a {
-      color: #fff;
-      text-decoration: underline;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .status a:hover {
-      color: #bacb09; /* Vert signature IkiKCode */
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: #666;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      background: #0a0a0a;
-    }
-
-    @media (max-width: 700px) {
-      h1 { font-size: 1.8rem; }
-      p, .status { font-size: 0.95rem; }
-    }
-  </style>
+@media(max-width:900px){.project-list{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.project-list{grid-template-columns:1fr;}header{padding:0.8rem 1rem;}nav a{margin-left:1rem;}}
+</style>
 </head>
-
 <body>
-  <header>
-    <a href="#" class="logo"><span>IK</span> IkiKCode</a>
-    <nav>
-      <a href="#">Accueil</a>
-      <a href="#">Projets</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
 
-  <main>
-    <img src="logo.png" alt="Logo IkiKCode">
-    <h1>Maintenance en cours</h1>
-    <p>Le site est temporairement indisponible en raison d’un problème technique lié à notre service d’envoi de messages.</p>
-    <div class="status">
-      ⚠️ <strong>Cause :</strong> Netlify bloque actuellement certaines requêtes JavaScript sortantes, ce qui empêche la transmission des messages depuis le formulaire de contact.<br><br>
-      🔧 <strong>Action :</strong> Une mise à jour de la configuration est en cours afin de rétablir le service d’envoi dans les plus brefs délais.<br><br>
-      🕒 <strong>Retour prévu :</strong> dès que les autorisations Netlify seront réactivées.<br><br>
-      📧 <strong>Contact :</strong> Vous pouvez me joindre directement à  
-      <a href="mailto:ikikcode@gmail.com">ikikcode@gmail.com</a>.
-    </div>
-  </main>
+<div class="popup active" id="popup">
+  <div class="popup-content">
+    <h2>Maintenance complétée</h2>
+    <p>L'envoi de messages depuis le site est maintenant opérationnel !</p>
+    <button id="close-popup">Fermer</button>
+  </div>
+</div>
 
-  <footer>
-    © 2025 IkiKCode — Elias Benikiker. Tous droits réservés.
-  </footer>
+<header>
+  <a href="#" class="logo"><span>IK</span> IkiKCode</a>
+  <nav>
+    <a href="#about">À propos</a>
+    <a href="#projects">Projets</a>
+    <a href="#donate">Soutien</a>
+    <a href="#skills">Compétences</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<section id="about" class="zoom-section">
+<h1>Bienvenue sur IkiKCode</h1>
+<p>Je suis <strong>Elias Benikiker</strong>, développeur passionné par les interfaces modernes, IA et e-commerce.</p>
+</section>
+
+<section id="projects" class="zoom-section">
+<h2>Projets récents</h2>
+<div class="project-list">
+  <div class="project-card">
+    <h3>Techn301 — Gestion de vie scolaire</h3>
+    <p>Gestion complète des notes, absences, messagerie et matériel pour le Collège Charles Péguy.</p>
+  </div>
+  <div class="project-card">
+    <h3>iKiKCode AI — Chatbot GPT5</h3>
+    <p>Chatbot IA pour support intelligent et automatisation.</p>
+  </div>
+  <div class="project-card">
+    <h3>RapidMarket — Boutique en ligne</h3>
+    <p>Création complète d'une boutique e-commerce pour Rapid Market à Palaiseau.</p>
+  </div>
+</div>
+</section>
+
+<section id="donate" class="zoom-section">
+<h2>Soutenir IkiKCode</h2>
+<p>Chaque don aide à faire grandir le projet et à maintenir le site.</p>
+<form action="https://www.paypal.com/donate" method="post" target="_blank">
+<input type="hidden" name="hosted_button_id" value="MV89QT9SZUZDN">
+<button type="submit" class="send">Faire un don</button>
+</form>
+</section>
+
+<section id="skills" class="zoom-section">
+<h2>Compétences principales</h2>
+<p>HTML, CSS, JavaScript, Supabase, Node.js, IA, Front-end, E-commerce.</p>
+</section>
+
+<section id="contact" class="zoom-section">
+<h2>Contact / Projet</h2>
+<p>Envie de collaborer ? Envoie-moi un message :</p>
+<form id="contact-form">
+<input type="text" name="name" placeholder="Ton nom" required>
+<input type="email" name="email" placeholder="Ton email" required>
+<input type="text" name="subject" placeholder="Sujet" required>
+<textarea name="message" placeholder="Ton message..." required></textarea>
+<button type="submit" class="send">Envoyer</button>
+<div id="form-status" class="status"></div>
+</form>
+</section>
+</main>
+
+<footer>
+© 2025 IkiKCode — Elias Benikiker. Tous droits réservés.
+</footer>
+
+<script>
+const popup=document.getElementById('popup');document.getElementById('close-popup').addEventListener('click',()=>popup.classList.remove('active'));
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}})},{threshold:0.2});
+document.querySelectorAll('.zoom-section').forEach(e=>observer.observe(e));
+
+emailjs.init("ph8J-e3J4qrubSfyG");
+const form=document.getElementById('contact-form');const status=document.getElementById('form-status');
+form.addEventListener('submit',function(e){e.preventDefault();status.textContent="Envoi en cours...";status.style.color="#ccc";
+const p={name:this.name.value,email:this.email.value,subject:this.subject.value,message:this.message.value};
+emailjs.send("service_aw8mbwd","template_a386pt2",p).then(()=>{status.textContent="✅ Message envoyé avec succès !";status.style.color="limegreen";this.reset();}).catch(err=>{status.textContent="❌ Erreur lors de l'envoi";status.style.color="#f66";console.error(err);});
+});
+</script>
+
 </body>
 </html>
