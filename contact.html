@@ -2,36 +2,26 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Contact — IkiKCode</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Contact – IKIKCODE</title>
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script defer src="js/contact.js"></script>
+<script defer src="contact.js"></script>
 </head>
 <body>
 
-<header>
-  <div class="logo">IKIKCODE</div>
-  <nav><a href="index.html">Accueil</a></nav>
+<header class="header glass">
+  <h1>Contact</h1>
 </header>
 
-<main>
-  <section class="glass" style="max-width:620px;margin:auto">
-    <h2>Contact</h2>
-    <p>
-      📧 ikikcode@gmail.com<br>
-      📞 <strong>+33 7 86 06 82 30</strong>
-    </p>
+<section class="section glass">
+  <form id="contact-form">
+    <input name="name" placeholder="Nom" required>
+    <input name="email" type="email" placeholder="Email" required>
+    <textarea name="message" placeholder="Message" required></textarea>
+    <button>Envoyer</button>
+    <div id="status"></div>
+  </form>
+</section>
 
-    <form id="contact-form">
-      <input name="name" placeholder="Nom" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Message" required></textarea>
-      <button class="btn">Envoyer</button>
-      <div id="status"></div>
-    </form>
-  </section>
-</main>
-
-<footer>© 2025 IkiKCode</footer>
 </body>
 </html>
