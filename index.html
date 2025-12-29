@@ -2,35 +2,87 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>IkiKCode</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<title>IKIKCODE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <div class="logo">IKIKCODE</div>
+<!-- INTRO -->
+<div id="intro">
+  <video autoplay muted playsinline id="introVideo">
+    <source src="assets/intro.mp4" type="video/mp4">
+  </video>
+  <div class="intro-overlay">
+    <img src="assets/logo.png">
+    <button onclick="enterSite()">Entrer</button>
+  </div>
+</div>
+
+<div id="site">
+
+<header class="header glass">
+  <h1>IKIKCODE</h1>
   <nav>
+    <a href="presentation.html">Présentation</a>
+    <a href="catalogue.html">Catalogue</a>
     <a href="sponsors.html">Sponsors</a>
-    <a href="donate.html">Dons</a>
+    <a href="don.html">Don</a>
     <a href="contact.html">Contact</a>
   </nav>
 </header>
 
-<main>
-  <section class="glass">
-    <h1>Bienvenue chez iKiKCode.<br>Le meilleur pour votre projet digital.</h1>
-    <p>
-      IkiKCode est une association qui crée et dévellope des solutions digitales de n'importe quelle forme,
-      des sites webs, des apps desktop, des apps Android...
-    </p>
-  </section>
-</main>
+<!-- HERO -->
+<section class="hero">
+  <h2>Création • Média • Innovation</h2>
+  <p>Développement web, design, vidéo & solutions digitales</p>
+</section>
 
-<footer>
-© 2025 IkiKCode — Elias Benikiker
-</footer>
+<!-- QUI SOMMES-NOUS -->
+<section class="section glass reveal">
+  <h3>Qui sommes-nous ?</h3>
+  <p>
+    IKIKCODE est une structure spécialisée dans la création de
+    solutions numériques modernes : sites web, applications,
+    supports visuels et contenus multimédias.
+  </p>
+</section>
 
+<!-- CE QUE NOUS FAISONS -->
+<section class="section glass reveal">
+  <h3>Ce que nous faisons</h3>
+  <ul>
+    <li>Sites web performants (HTML / CSS / JS)</li>
+    <li>E-commerce (Shopify)</li>
+    <li>Applications desktop</li>
+    <li>Design & animations modernes</li>
+    <li>Publicité visuelle & vidéo</li>
+  </ul>
+</section>
+
+<!-- MÉTHODE -->
+<section class="section glass reveal">
+  <h3>Notre méthode</h3>
+  <div class="steps">
+    <div class="step">1️⃣ Analyse du besoin</div>
+    <div class="step">2️⃣ Proposition personnalisée</div>
+    <div class="step">3️⃣ Réalisation & suivi</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section glass reveal center">
+  <h3>Un projet ?</h3>
+  <p>Contactez-nous et transformons vos idées en réalité.</p>
+  <a class="cta" href="contact.html">Nous contacter</a>
+</section>
+
+<footer>© 2025 IKIKCODE</footer>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
 
