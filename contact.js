@@ -1,25 +1,21 @@
 (function () {
-  emailjs.init("TON_PUBLIC_KEY"); // ex: AbCdEf123
+  emailjs.init("PUBLIC_KEY_ICI");
 })();
 
-const form = document.getElementById("contact-form");
-const status = document.getElementById("status");
-
-form.addEventListener("submit", function (e) {
+document.getElementById("contact-form").addEventListener("submit", function(e){
   e.preventDefault();
 
-  status.innerText = "⏳ Envoi en cours...";
+  const status = document.getElementById("status");
+  status.textContent = "Envoi en cours...";
 
   emailjs.sendForm(
-    "TON_SERVICE_ID",   // ex: service_gmail
-    "TON_TEMPLATE_ID",  // ex: template_contact
+    "SERVICE_ID_ICI",
+    "TEMPLATE_ID_ICI",
     this
-  )
-  .then(() => {
-    status.innerText = "✅ Message envoyé avec succès";
-    form.reset();
-  })
-  .catch(() => {
-    status.innerText = "❌ Erreur lors de l’envoi";
+  ).then(() => {
+    status.textContent = "Message envoyé ✅";
+    this.reset();
+  }).catch(() => {
+    status.textContent = "Erreur ❌";
   });
 });
