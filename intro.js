@@ -1,5 +1,13 @@
-const intro = document.getElementById("intro");
+window.addEventListener("load", () => {
+  const intro = document.getElementById("intro");
+  const video = document.getElementById("introVideo");
 
-setTimeout(() => {
-  intro.classList.add("hide");
-}, 4500);
+  if (!intro || !video) return;
+
+
+  video.play().catch(() => {});
+
+  setTimeout(() => {
+    intro.classList.add("hide");
+  }, 7000);
+});
