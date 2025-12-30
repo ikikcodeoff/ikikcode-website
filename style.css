@@ -109,6 +109,23 @@ html, body {
   }
 }
 
+#intro video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#intro.hide {
+  animation: introFade 1s forwards;
+}
+
+@keyframes introFade {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .hero {
   padding: 220px 20px 140px;
   text-align: center;
