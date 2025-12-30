@@ -1,59 +1,83 @@
+:root {
+  --glass-bg: rgba(255,255,255,0.12);
+  --glass-border: rgba(255,255,255,0.25);
+  --blur: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Inter, sans-serif;
-  background: #f5f6fa;
+  background:
+    radial-gradient(circle at top, #c7d2fe, #f5f6fa 60%);
+  color: #111;
 }
 
-header {
-  padding: 20px;
-  background: white;
+/* ================= NAVBAR ================= */
+
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 60px);
+  max-width: 1100px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 28px;
+  z-index: 1000;
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
 
-nav a {
-  margin-right: 15px;
+.logo {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.navbar nav a {
+  margin-left: 20px;
   text-decoration: none;
-  color: black;
+  color: #111;
+  font-weight: 500;
+  position: relative;
+  transition: opacity .3s ease;
 }
 
-.hero {
-  padding: 90px 20px;
-  text-align: center;
+.navbar nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: black;
+  transition: width .3s ease;
 }
 
-.section {
-  padding: 60px 20px;
-  max-width: 900px;
-  margin: auto;
-}
-
-.section.alt {
-  background: #fff;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 30px;
-  padding: 40px;
-}
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-}
-
-.form {
-  max-width: 500px;
-  margin: 80px auto;
-}
-
-input, textarea, button {
+.navbar nav a:hover::after {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 15px;
 }
+
+.navbar .don {
+  padding: 8px 18px;
+  border-radius: 20px;
+  background: black;
+  color: white;
+}
+
+/* ================= INTRO VIDEO ================= */
 
 #intro {
   position: fixed;
@@ -69,6 +93,130 @@ input, textarea, button {
 }
 
 #intro.hide {
-  display: none;
+  animation: fadeOut 1s forwards;
 }
 
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ================= SECTIONS ================= */
+
+.hero {
+  padding: 200px 20px 120px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  opacity: 0.7;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 80px auto;
+  padding: 60px;
+  border-radius: 32px;
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--glass-border);
+
+  box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+  transition: transform .5s ease;
+}
+
+.section:hover {
+  transform: translateY(-8px);
+}
+
+/* ================= GRID / CARDS ================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.card {
+  padding: 40px;
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.3);
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+}
+
+.card img {
+  max-width: 160px;
+  margin-bottom: 20px;
+}
+
+/* ================= FORMS ================= */
+
+.form {
+  max-width: 520px;
+  margin: 200px auto;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: 18px;
+
+  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(20px);
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 30px;
+  border: none;
+  background: black;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform .3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* ================= DON ================= */
+
+.don-link {
+  display: inline-block;
+  padding: 18px 40px;
+  background: black;
+  color: white;
+  border-radius: 40px;
+  text-decoration: none;
+  margin-top: 30px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+  text-align: center;
+  padding: 40px;
+  opacity: 0.6;
+}
