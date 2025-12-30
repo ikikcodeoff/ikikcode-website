@@ -1,44 +1,46 @@
 :root {
-  --glass-bg: rgba(255,255,255,0.12);
-  --glass-border: rgba(255,255,255,0.25);
-  --blur: 28px;
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-soft: rgba(255, 255, 255, 0.35);
+  --blur-strong: 18px;
+  --blur-soft: 12px;
+  --black: #0f0f0f;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
+html, body {
   margin: 0;
-  font-family: Inter, sans-serif;
+  padding: 0;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
   background:
-    radial-gradient(circle at top, #c7d2fe, #f5f6fa 60%);
-  color: #111;
+    radial-gradient(circle at top, #dbe4ff 0%, #f5f6fa 55%);
+  color: var(--black);
 }
-
-/* ================= NAVBAR ================= */
 
 .navbar {
   position: fixed;
-  top: 20px;
+  top: 22px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 60px);
-  max-width: 1100px;
+  max-width: 1180px;
+  z-index: 1000;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   padding: 14px 28px;
-  z-index: 1000;
+  border-radius: 24px;
 
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--blur));
+  background: var(--glass-soft);
+  backdrop-filter: blur(var(--blur-strong));
   border: 1px solid var(--glass-border);
-  border-radius: 22px;
 
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.22);
 }
 
 .logo {
@@ -47,12 +49,17 @@ body {
 }
 
 .navbar nav a {
-  margin-left: 20px;
+  margin-left: 22px;
   text-decoration: none;
-  color: #111;
+  color: var(--black);
   font-weight: 500;
   position: relative;
+  opacity: 0.85;
   transition: opacity .3s ease;
+}
+
+.navbar nav a:hover {
+  opacity: 1;
 }
 
 .navbar nav a::after {
@@ -62,8 +69,8 @@ body {
   bottom: -6px;
   width: 0;
   height: 2px;
-  background: black;
-  transition: width .3s ease;
+  background: var(--black);
+  transition: width .35s ease;
 }
 
 .navbar nav a:hover::after {
@@ -72,12 +79,11 @@ body {
 
 .navbar .don {
   padding: 8px 18px;
-  border-radius: 20px;
-  background: black;
+  border-radius: 22px;
+  background: var(--black);
   color: white;
+  opacity: 1;
 }
-
-/* ================= INTRO VIDEO ================= */
 
 #intro {
   position: fixed;
@@ -93,20 +99,18 @@ body {
 }
 
 #intro.hide {
-  animation: fadeOut 1s forwards;
+  animation: introFade 1s forwards;
 }
 
-@keyframes fadeOut {
+@keyframes introFade {
   to {
     opacity: 0;
     visibility: hidden;
   }
 }
 
-/* ================= SECTIONS ================= */
-
 .hero {
-  padding: 200px 20px 120px;
+  padding: 220px 20px 140px;
   text-align: center;
 }
 
@@ -117,61 +121,99 @@ body {
 
 .hero p {
   opacity: 0.7;
+  font-size: 1.1rem;
 }
 
 .section {
-  max-width: 1100px;
-  margin: 80px auto;
-  padding: 60px;
-  border-radius: 32px;
+  max-width: 1180px;
+  margin: 90px auto;
+  padding: 70px;
+  border-radius: 34px;
 
   background: var(--glass-bg);
-  backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur-strong));
   border: 1px solid var(--glass-border);
 
-  box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.22);
   transition: transform .5s ease;
 }
 
 .section:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
-/* ================= GRID / CARDS ================= */
+.section h2,
+.section h3 {
+  margin-top: 0;
+}
 
-.grid {
+.flyer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
+  gap: 55px;
+  margin-top: 60px;
 }
 
-.card {
-  padding: 40px;
-  border-radius: 28px;
+.flyer {
+  aspect-ratio: 210 / 297;
+  padding: 44px 34px;
 
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
 
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  transition: transform .4s ease, box-shadow .4s ease;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(var(--blur-soft));
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 30px;
+
+  box-shadow: 0 30px 70px rgba(0,0,0,0.18);
+  transition: transform .45s ease, box-shadow .45s ease;
 }
 
-.card:hover {
-  transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+.flyer:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 55px 110px rgba(0,0,0,0.28);
 }
 
-.card img {
-  max-width: 160px;
-  margin-bottom: 20px;
+.flyer h3 {
+  font-size: 1.7rem;
+  margin-top: 24px;
 }
 
-/* ================= FORMS ================= */
+.flyer p {
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+.flyer.sponsor img {
+  max-width: 190px;
+  margin-top: 50px;
+}
+
+.flyer-btn {
+  margin-top: 34px;
+  padding: 14px 38px;
+  border-radius: 40px;
+
+  background: var(--black);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.flyer-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 22px 45px rgba(0,0,0,0.35);
+}
 
 .form {
   max-width: 520px;
-  margin: 200px auto;
+  margin: 220px auto 120px;
 }
 
 input, textarea {
@@ -181,8 +223,14 @@ input, textarea {
   border-radius: 18px;
 
   border: 1px solid var(--glass-border);
-  background: rgba(255,255,255,0.35);
-  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(var(--blur-soft));
+
+  font-size: 1rem;
+}
+
+textarea {
+  min-height: 120px;
 }
 
 button {
@@ -190,10 +238,12 @@ button {
   padding: 16px;
   border-radius: 30px;
   border: none;
-  background: black;
+
+  background: var(--black);
   color: white;
   font-size: 1rem;
   cursor: pointer;
+
   transition: transform .3s ease;
 }
 
@@ -201,22 +251,35 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* ================= DON ================= */
 
 .don-link {
   display: inline-block;
-  padding: 18px 40px;
-  background: black;
+  padding: 18px 42px;
+  background: var(--black);
   color: white;
   border-radius: 40px;
   text-decoration: none;
   margin-top: 30px;
 }
 
-/* ================= FOOTER ================= */
 
 footer {
   text-align: center;
-  padding: 40px;
-  opacity: 0.6;
+  padding: 50px;
+  opacity: 0.55;
+}
+
+
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+
+  .section {
+    padding: 40px 26px;
+  }
+
+  .navbar nav a {
+    margin-left: 14px;
+  }
 }
