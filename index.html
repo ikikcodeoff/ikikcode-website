@@ -1,59 +1,747 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>iKiKCode</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<script defer src="intro.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IKIKCODE — Votre boutique e-commerce prête en 24h</title>
+  <meta name="description" content="Envoyez vos photos produits, IKIKCODE crée votre boutique e-commerce professionnelle en moins de 24h. À partir de 39€."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#06070f;--bg2:#0b0d1a;--bg3:#0f1222;
+      --blue:#3b82f6;--blue-l:#60a5fa;--blue-xl:#93c5fd;
+      --blue-dim:rgba(59,130,246,.1);--blue-b:rgba(59,130,246,.22);
+      --white:#eef2ff;--muted:#5d6585;--muted2:#8891b4;
+      --card:rgba(255,255,255,.025);--cb:rgba(255,255,255,.065);
+      --r:16px;--green:#22c55e;--green-dim:rgba(34,197,94,.12);--green-b:rgba(34,197,94,.28);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
+    h1,h2,h3,h4,.syne{font-family:'Syne',sans-serif}
+    a{color:inherit}
+    body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.5}
+    .g{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(110px);opacity:.15}
+    .g1{width:700px;height:700px;top:-250px;left:-200px;background:#3b82f6;animation:gF 8s ease-in-out infinite}
+    .g2{width:450px;height:450px;top:55vh;right:-150px;background:#1d4ed8;animation:gF 10s 2s ease-in-out infinite reverse}
+    .g3{width:350px;height:350px;bottom:0;left:25%;background:#1e40af;animation:gF 12s 4s ease-in-out infinite}
+    @keyframes gF{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-40px) scale(1.05)}}
+    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:10px}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:16px 5%;background:rgba(6,7,15,.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--cb);transition:.3s}
+    .logo{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;letter-spacing:-.5px;color:var(--white);text-decoration:none}
+    .logo span{color:var(--blue)}
+    .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+    .nav-links a{color:var(--muted2);text-decoration:none;font-size:.875rem;font-weight:500;transition:.2s}
+    .nav-links a:hover{color:var(--white)}
+    .nav-cta{background:var(--blue)!important;color:#fff!important;padding:9px 20px!important;border-radius:8px!important;font-weight:700!important;font-size:.85rem!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--blue-l)!important;transform:translateY(-1px)!important;box-shadow:0 6px 20px rgba(59,130,246,.35)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+    .hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;transition:.3s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mob{display:none;position:fixed;top:57px;left:0;right:0;background:rgba(6,7,15,.98);backdrop-filter:blur(24px);z-index:199;padding:1.5rem 5% 2rem;flex-direction:column;gap:1.2rem;border-bottom:1px solid var(--cb)}
+    .mob.open{display:flex}
+    .mob a{color:var(--muted2);text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;transition:.2s;padding:.4rem 0;border-bottom:1px solid var(--cb)}
+    .mob a:hover{color:var(--white)}
+    .mob a:last-child{color:var(--blue);border:none}
+    section{position:relative;z-index:1}
+
+    /* HERO */
+    #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 5% 90px}
+    .badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-dim);border:1px solid var(--blue-b);color:var(--blue-l);font-size:.75rem;font-weight:700;padding:6px 14px;border-radius:100px;margin-bottom:2rem;letter-spacing:1px;text-transform:uppercase;animation:fU .7s ease both}
+    .bdot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:blink 2s ease infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    h1{font-size:clamp(2.8rem,7.5vw,5.8rem);font-weight:800;line-height:1.04;letter-spacing:-2.5px;max-width:900px;animation:fU .7s .08s ease both}
+    h1 em{font-style:normal;background:linear-gradient(135deg,var(--blue),var(--blue-xl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hsub{color:var(--muted2);font-size:clamp(1rem,2.2vw,1.2rem);max-width:520px;margin:1.6rem auto 2.8rem;animation:fU .7s .16s ease both;line-height:1.7}
+    .brow{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fU .7s .24s ease both}
+    .bp{background:var(--blue);color:#fff;text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;padding:15px 30px;border-radius:10px;transition:.25s;position:relative;overflow:hidden}
+    .bp:hover{background:var(--blue-l);transform:translateY(-3px);box-shadow:0 12px 35px rgba(59,130,246,.4)}
+    .bs{background:transparent;color:var(--white);text-decoration:none;font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;padding:15px 30px;border-radius:10px;border:1px solid var(--cb);transition:.25s}
+    .bs:hover{border-color:var(--blue-b);background:var(--blue-dim);transform:translateY(-3px)}
+    .sp{margin-top:3.5rem;display:flex;align-items:center;gap:1rem;justify-content:center;color:var(--muted2);font-size:.85rem;animation:fU .7s .32s ease both;flex-wrap:wrap}
+    .avs{display:flex}
+    .av{width:34px;height:34px;border-radius:50%;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:#fff;margin-left:-9px;font-family:'Syne',sans-serif}
+    .av:first-child{margin-left:0}
+    .a1{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}.a2{background:linear-gradient(135deg,#6366f1,#4338ca)}.a3{background:linear-gradient(135deg,#0ea5e9,#0369a1)}.a4{background:linear(135deg,#14b8a6,#0d9488)}.a5{background:linear-gradient(135deg,#f59e0b,#d97706)}
+    .stars{display:flex;gap:2px;font-size:.9rem}
+    .sp strong{color:var(--white)}
+
+    /* MOCKUP */
+    .hmock{position:relative;margin-top:4.5rem;width:100%;max-width:860px;animation:fU .7s .4s ease both}
+    .mgl{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:70%;height:60px;background:var(--blue);border-radius:50%;filter:blur(50px);opacity:.2;z-index:-1}
+    .mfr{background:var(--bg3);border:1px solid var(--cb);border-radius:18px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(59,130,246,.08)}
+    .mbar{background:var(--bg2);padding:11px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--cb)}
+    .dot{width:10px;height:10px;border-radius:50%}
+    .dr{background:#ff5f57}.dy{background:#febc2e}.dg{background:#28c840}
+    .ub{flex:1;background:rgba(255,255,255,.04);border-radius:6px;padding:5px 12px;font-size:.75rem;color:var(--muted2);text-align:center}
+    .mbody{padding:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .pc2{background:var(--bg2);border:1px solid var(--cb);border-radius:12px;overflow:hidden;transition:.3s;cursor:pointer}
+    .pc2:hover{transform:translateY(-5px);border-color:var(--blue-b);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+    .pi{height:90px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+    .pi1{background:linear-gradient(135deg,#0f1f40,#1a3a70)}.pi2{background:linear-gradient(135deg,#1a0e35,#2d1060)}.pi3{background:linear-gradient(135deg,#0a1f1a,#0d3d30)}
+    .pin{padding:10px}
+    .pn{font-size:.75rem;font-weight:600;margin-bottom:3px;font-family:'Syne',sans-serif}
+    .pp{font-size:.7rem;color:var(--blue-l);font-weight:700}
+    .pb{width:100%;margin-top:7px;background:var(--blue-dim);border:1px solid var(--blue-b);color:var(--blue-l);font-size:.65rem;font-weight:700;padding:5px;border-radius:6px;cursor:pointer;transition:.2s;font-family:'Syne',sans-serif}
+    .pb:hover{background:var(--blue);color:#fff}
+
+    /* TICKER */
+    .tkw{overflow:hidden;border-top:1px solid var(--cb);border-bottom:1px solid var(--cb);padding:14px 0;background:var(--bg2);position:relative;z-index:1}
+    .tki{display:flex;width:max-content;animation:tick 28s linear infinite}
+    .tki:hover{animation-play-state:paused}
+    @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .ti{display:flex;align-items:center;gap:.6rem;padding:0 2.5rem;white-space:nowrap;font-size:.82rem;color:var(--muted2);font-weight:500}
+    .ts{color:var(--blue);font-size:.5rem}
+
+    /* SECTIONS */
+    .sw{max-width:1100px;margin:0 auto;padding:100px 5%}
+    .sl{text-align:center;color:var(--blue);font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:.8rem}
+    .st{text-align:center;font-size:clamp(1.9rem,4vw,2.9rem);font-weight:800;letter-spacing:-1.2px;margin-bottom:.9rem;line-height:1.1}
+    .ss{text-align:center;color:var(--muted2);max-width:480px;margin:0 auto 4rem;font-size:.95rem;line-height:1.7}
+    .sdiv{height:1px;background:var(--cb);max-width:1100px;margin:0 auto;position:relative;z-index:1}
+
+    /* HOW */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;position:relative}
+    .steps::before{content:'';position:absolute;top:43px;left:calc(16.66% + 26px);right:calc(16.66% + 26px);height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+    .step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2rem 1.5rem;background:var(--card);border:1px solid var(--cb);border-radius:var(--r);transition:.3s;position:relative;overflow:hidden}
+    .step::before{content:'';position:absolute;inset:0;border-radius:var(--r);background:linear-gradient(135deg,var(--blue-dim),transparent);opacity:0;transition:.3s}
+    .step:hover{border-color:var(--blue-b);transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+    .step:hover::before{opacity:1}
+    .sn{width:54px;height:54px;background:var(--bg3);border:2px solid var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--blue);margin-bottom:1.3rem;position:relative;z-index:1;transition:.3s}
+    .step:hover .sn{background:var(--blue);color:#fff;box-shadow:0 0 20px rgba(59,130,246,.5)}
+    .si{font-size:2.2rem;margin-bottom:.8rem}
+    .step h3{font-size:1.05rem;font-weight:700;margin-bottom:.6rem}
+    .step p{color:var(--muted2);font-size:.88rem;line-height:1.65}
+
+    /* STATS */
+    .statsb{max-width:1100px;margin:0 auto;padding:0 5% 100px;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    .stat{text-align:center;padding:2rem;background:var(--card);border:1px solid var(--cb);border-radius:var(--r);transition:.3s}
+    .stat:hover{border-color:var(--blue-b);transform:translateY(-4px)}
+    .snum{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--blue);letter-spacing:-2px;line-height:1}
+    .slbl{color:var(--muted2);font-size:.85rem;margin-top:.4rem}
+
+    /* LIVE DEMO */
+    .lw{margin-bottom:3.5rem}
+    .lh{display:flex;align-items:center;gap:1.2rem;margin-bottom:1rem;flex-wrap:wrap}
+    .lpill{background:var(--green-dim);border:1px solid var(--green-b);color:var(--green);font-size:.72rem;font-weight:700;padding:5px 13px;border-radius:100px;letter-spacing:.5px;white-space:nowrap;display:flex;align-items:center;gap:6px}
+    .ldot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.8s ease infinite}
+    .lt{flex:1}
+    .lt h3{font-size:.98rem;font-weight:700;margin-bottom:.2rem}
+    .lt p{color:var(--muted2);font-size:.8rem}
+    .ol{color:var(--blue-l);font-size:.8rem;font-weight:600;text-decoration:none;white-space:nowrap;padding:7px 14px;border:1px solid var(--blue-b);border-radius:8px;background:var(--blue-dim);transition:.2s}
+    .ol:hover{background:rgba(59,130,246,.2);transform:translateY(-1px)}
+    .iff{background:var(--bg3);border:1px solid var(--cb);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+    .ifb{background:var(--bg2);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--cb)}
+    .iub{flex:1;background:rgba(255,255,255,.04);border-radius:6px;padding:5px 12px;font-size:.74rem;color:var(--muted2);text-align:center}
+    .iff iframe{width:100%;height:620px;border:none;display:block}
+
+    /* PORTFOLIO */
+    .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .pfc{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);overflow:hidden;transition:.35s;cursor:pointer}
+    .pfc:hover{border-color:var(--blue-b);transform:translateY(-8px);box-shadow:0 24px 60px rgba(0,0,0,.45)}
+    .pfp{height:185px;position:relative;overflow:hidden}
+    .pv1{background:linear-gradient(135deg,#0f1a2e,#1a3a6c)}.pv2{background:linear-gradient(135deg,#0a1628,#0e3a2a)}.pv3{background:linear-gradient(135deg,#1a0a28,#3a1a5a)}
+    .pvi{position:absolute;inset:12px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:10px;display:flex;flex-direction:column;overflow:hidden}
+    .pvt{padding:7px 10px;background:rgba(0,0,0,.4);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:5px}
+    .md{width:6px;height:6px;border-radius:50%}
+    .pvb{flex:1;padding:9px;display:grid;grid-template-columns:1fr 1fr;gap:5px}
+    .pvi2{border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+    .c1{background:rgba(59,130,246,.15)}.c2{background:rgba(99,102,241,.15)}.c3{background:rgba(14,165,233,.15)}.c4{background:rgba(20,184,166,.15)}.c5{background:rgba(236,72,153,.15)}.c6{background:rgba(245,158,11,.15)}.c7{background:rgba(34,197,94,.15)}.c8{background:rgba(168,85,247,.15)}
+    .pfi{padding:1.2rem}
+    .pftag{font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:.4rem}
+    .pfi h3{font-size:.98rem;font-weight:700;margin-bottom:.3rem}
+    .pfi p{color:var(--muted2);font-size:.83rem}
+
+    /* PRICING */
+    .prgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+    .prc{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);padding:2rem;position:relative;transition:.35s}
+    .prc:hover{border-color:var(--blue-b);transform:translateY(-5px)}
+    .prc.feat{border-color:var(--blue);background:linear-gradient(180deg,rgba(59,130,246,.09),var(--card));transform:scale(1.04)}
+    .prc.feat:hover{transform:scale(1.04) translateY(-5px)}
+    .fb{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;font-family:'Syne',sans-serif}
+    .pplan{font-size:.72rem;font-weight:700;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:.8rem;font-family:'Syne',sans-serif}
+    .prprice{font-family:'Syne',sans-serif;font-size:3.2rem;font-weight:800;letter-spacing:-2px;line-height:1}
+    .prprice sup{font-size:1.1rem;vertical-align:super;font-weight:600}
+    .prdesc{color:var(--muted2);font-size:.86rem;margin:.6rem 0 1.6rem;line-height:1.5}
+    .prfl{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem}
+    .prfl li{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:rgba(238,242,255,.8)}
+    .prfl li::before{content:'✓';color:var(--blue);font-weight:800;flex-shrink:0;margin-top:1px}
+    .pbo{width:100%;padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:.25s;text-align:center;text-decoration:none;display:block;background:transparent;border:1px solid var(--cb);color:var(--white)}
+    .pbo:hover{border-color:var(--blue);color:var(--blue)}
+    .pbf{width:100%;padding:13px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:.25s;text-align:center;text-decoration:none;display:block;background:var(--blue);border:none;color:#fff}
+    .pbf:hover{background:var(--blue-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,.4)}
+
+    /* WHY */
+    .wgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+    .wc{background:var(--card);border:1px solid var(--cb);border-radius:var(--r);padding:1.8rem;transition:.3s;position:relative;overflow:hidden}
+    .wc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue-dim),transparent);opacity:0;transition:.3s}
+    .wc:hover{border-color:var(--blue-b);transform:translateY(-5px)}
+    .wc:hover::before{opacity:1}
+    .wi{width:50px;height:50px;background:var(--blue-dim);border:1px solid var(--blue-b);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;position:relative;transition:.3s}
+    .wc:hover .wi{background:var(--blue);border-color:var(--blue)}
+    .wc h3{font-size:1rem;font-weight:700;margin-bottom:.5rem;position:relative}
+    .wc p{color:var(--muted2);font-size:.86rem;line-height:1.6;position:relative}
+
+    /* CONTACT */
+    #contact{padding:100px 5%;max-width:720px;margin:0 auto}
+    .cw{background:var(--bg2);border:1px solid var(--cb);border-radius:24px;padding:3rem;position:relative;overflow:hidden}
+    .cw::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:var(--blue);border-radius:50%;filter:blur(100px);opacity:.06}
+    .fg{margin-bottom:1.2rem;position:relative}
+    label{display:block;font-size:.83rem;font-weight:600;margin-bottom:.5rem;color:rgba(238,242,255,.65);font-family:'Syne',sans-serif;letter-spacing:.3px}
+    input,textarea,select{width:100%;background:var(--bg3);border:1px solid var(--cb);border-radius:10px;padding:12px 15px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.93rem;transition:.25s;outline:none}
+    input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+    input::placeholder,textarea::placeholder{color:var(--muted)}
+    textarea{resize:vertical;min-height:110px}
+    select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg fill='none' stroke='%236b7494' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px}
+    select option{background:var(--bg3)}
+    .fgrow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .fup{width:100%;background:var(--bg3);border:2px dashed var(--cb);border-radius:10px;padding:2rem;text-align:center;cursor:pointer;transition:.25s}
+    .fup:hover{border-color:var(--blue-b);background:var(--blue-dim)}
+    .fui{font-size:2rem;margin-bottom:.5rem}
+    .fup p{color:var(--muted2);font-size:.83rem}
+    .fup span{color:var(--blue);font-weight:600}
+    #fi{display:none}
+    .fnames{margin-top:.5rem;font-size:.78rem;color:var(--blue-l)}
+    .sbtn{width:100%;padding:15px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:.25s;margin-top:.5rem;position:relative;overflow:hidden}
+    .sbtn:hover{background:var(--blue-l);transform:translateY(-2px);box-shadow:0 10px 30px rgba(59,130,246,.4)}
+    .sbtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .fnote{text-align:center;color:var(--muted2);font-size:.76rem;margin-top:.8rem}
+    .smsg{display:none;text-align:center;padding:2.5rem 1rem}
+    .smi{font-size:3.5rem;margin-bottom:1rem;animation:pop .5s ease both}
+    @keyframes pop{0%{transform:scale(0)}80%{transform:scale(1.15)}100%{transform:scale(1)}}
+    .smsg h3{font-size:1.3rem;font-weight:700;margin-bottom:.6rem}
+    .smsg p{color:var(--muted2);font-size:.9rem;line-height:1.6}
+
+    /* FAQ */
+    #faq{padding:100px 5%;max-width:780px;margin:0 auto}
+    .ftabs{display:flex;gap:.5rem;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap}
+    .ftab{padding:8px 18px;border-radius:100px;border:1px solid var(--cb);background:transparent;color:var(--muted2);font-family:'Syne',sans-serif;font-weight:600;font-size:.8rem;cursor:pointer;transition:.2s}
+    .ftab.active,.ftab:hover{background:var(--blue-dim);border-color:var(--blue-b);color:var(--white)}
+    .fitems{margin-bottom:3rem}
+    .fi{border:1px solid var(--cb);border-radius:12px;margin-bottom:.75rem;overflow:hidden;transition:.25s}
+    .fi:hover{border-color:var(--blue-b)}
+    .fi.hidden{display:none}
+    .fq{width:100%;background:var(--card);border:none;color:var(--white);font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;text-align:left;padding:1.2rem 1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:.2s}
+    .fq:hover{background:rgba(255,255,255,.04)}
+    .farr{width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--blue-dim);border-radius:6px;transition:.3s}
+    .farr svg{width:12px;height:12px;stroke:var(--blue-l);transition:.3s}
+    .fi.open .farr{background:var(--blue);transform:rotate(180deg)}
+    .fi.open .farr svg{stroke:#fff}
+    .fa{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+    .fi.open .fa{max-height:300px}
+    .fai{padding:0 1.4rem 1.2rem;color:var(--muted2);font-size:.88rem;line-height:1.75}
+    .fai a{color:var(--blue-l);text-decoration:none}
+    .fai a:hover{text-decoration:underline}
+
+    /* ASK */
+    .askw{background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(99,102,241,.05));border:1px solid var(--blue-b);border-radius:20px;padding:2.2rem;text-align:center}
+    .askw h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+    .askw p{color:var(--muted2);font-size:.88rem;margin-bottom:1.5rem}
+    .askf{display:flex;gap:.7rem;max-width:500px;margin:0 auto;flex-wrap:wrap}
+    .askf input{flex:1;min-width:200px;background:var(--bg3);border:1px solid var(--cb);border-radius:10px;padding:11px 15px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:.25s}
+    .askf input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+    .askf input::placeholder{color:var(--muted)}
+    .askbtn{padding:11px 22px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;transition:.2s;white-space:nowrap}
+    .askbtn:hover{background:var(--blue-l);transform:translateY(-2px)}
+    .askok{display:none;color:var(--green);font-weight:600;font-size:.9rem;margin-top:.8rem}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--cb);padding:4rem 5% 2.5rem;position:relative;z-index:1;background:var(--bg2)}
+    .fin{max-width:1100px;margin:0 auto}
+    .ftop{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+    .fbrand .flogo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.8rem;display:block;text-decoration:none;color:var(--white)}
+    .fbrand .flogo span{color:var(--blue)}
+    .fbrand p{color:var(--muted2);font-size:.85rem;line-height:1.65;max-width:220px;margin-bottom:1.2rem}
+    .fsocs{display:flex;gap:.7rem}
+    .sl2{width:38px;height:38px;background:var(--card);border:1px solid var(--cb);border-radius:10px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted2);transition:.25s}
+    .sl2:hover{border-color:var(--blue-b);background:var(--blue-dim);color:var(--blue-l);transform:translateY(-2px)}
+    .fcol h4{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:1.2rem;color:var(--white)}
+    .fcol ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+    .fcol ul a{color:var(--muted2);text-decoration:none;font-size:.85rem;transition:.2s}
+    .fcol ul a:hover{color:var(--white)}
+    .fbot{border-top:1px solid var(--cb);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .fbot p{color:var(--muted);font-size:.78rem}
+
+    /* FLOAT */
+    .pf{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
+    .wab{background:#25D366;color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;padding:11px 18px;border-radius:100px;display:flex;align-items:center;gap:8px;text-decoration:none;box-shadow:0 8px 30px rgba(37,211,102,.35);transition:.25s;white-space:nowrap;animation:waPulse 3s ease-in-out infinite}
+    @keyframes waPulse{0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.35)}50%{box-shadow:0 8px 40px rgba(37,211,102,.6)}}
+    .wab:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(37,211,102,.5)}
+    .wab svg{width:17px;height:17px;flex-shrink:0}
+    .cab{background:var(--bg2);border:1px solid var(--cb);color:var(--white);font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;padding:10px 16px;border-radius:100px;display:flex;align-items:center;gap:7px;text-decoration:none;transition:.25s}
+    .cab:hover{border-color:var(--blue-b);background:var(--blue-dim);transform:translateY(-2px)}
+    .cab svg{width:14px;height:14px}
+
+    /* ANIMS */
+    @keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.vis{opacity:1;transform:translateY(0)}
+
+    /* RESPONSIVE */
+    @media(max-width:1000px){.wgrid{grid-template-columns:1fr 1fr}.ftop{grid-template-columns:1fr 1fr}.statsb{grid-template-columns:1fr 1fr}}
+    @media(max-width:750px){.steps,.pgrid,.prgrid{grid-template-columns:1fr}.mbody{grid-template-columns:1fr 1fr}.prc.feat{transform:scale(1)}.prc.feat:hover{transform:translateY(-5px)}.steps::before{display:none}.nav-links{display:none}.hamburger{display:flex}.iff iframe{height:440px}.fgrow{grid-template-columns:1fr}.cw{padding:2rem 1.4rem}.ftop{grid-template-columns:1fr}.fbot{flex-direction:column;text-align:center}}
+    @media(max-width:480px){.wgrid{grid-template-columns:1fr}.mbody{grid-template-columns:1fr}.statsb{grid-template-columns:1fr 1fr}.pf{bottom:16px;right:16px}.wat{display:none}.wab{border-radius:50%;width:50px;height:50px;padding:0;justify-content:center}.wab svg{width:22px;height:22px}}
+  </style>
 </head>
-<script src="intro.js"></script>
-
 <body>
+  <div class="g g1"></div><div class="g g2"></div><div class="g g3"></div>
 
-<div id="intro">
-  <video id="introVideo" autoplay muted playsinline>
-    <source src="assets/intro.mp4" type="video/mp4">
-  </video>
-</div>
-
-
-<header class="navbar">
-  <div class="logo">IKIKCODE</div>
+  <!-- NAV -->
   <nav>
-    <a href="index.html">Accueil</a>
-    <a href="catalogue.html">Catalogue</a>
-    <a href="sponsors.html">Sponsors</a>
-    <a href="contact.html">Contact</a>
-    <a class="don" href="don.html">❤️ Don</a>
+    <a href="#" class="logo">IKIK<span>CODE</span></a>
+    <ul class="nav-links">
+      <li><a href="#how">Comment ça marche</a></li>
+      <li><a href="#examples">Exemples</a></li>
+      <li><a href="#pricing">Tarifs</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav-cta">Créer ma boutique →</a></li>
+    </ul>
+    <div class="hamburger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
   </nav>
-</header>
+  <div class="mob" id="mob">
+    <a href="#how" onclick="closeMenu()">Comment ça marche</a>
+    <a href="#examples" onclick="closeMenu()">Exemples</a>
+    <a href="#pricing" onclick="closeMenu()">Tarifs</a>
+    <a href="#faq" onclick="closeMenu()">FAQ</a>
+    <a href="#contact" onclick="closeMenu()">→ Créer ma boutique</a>
+  </div>
 
+  <!-- HERO -->
+  <section id="hero">
+    <div class="badge"><span class="bdot"></span>Création e-commerce · Livré en 24h</div>
+    <h1>Votre boutique<br/>e-commerce prête<br/>en <em>24h.</em></h1>
+    <p class="hsub">Envoyez simplement les photos de vos produits et nous créons votre site professionnel, optimisé et prêt à vendre.</p>
+    <div class="brow">
+      <a href="#contact" class="bp">Créer ma boutique →</a>
+      <a href="#examples" class="bs">Voir un exemple</a>
+    </div>
+    <div class="sp">
+      <div class="avs">
+        <div class="av a1">JM</div><div class="av a2">SB</div><div class="av a3">AL</div><div class="av a4">CR</div><div class="av a5">+</div>
+      </div>
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <span>Plus de <strong>50 boutiques</strong> créées avec succès</span>
+    </div>
+    <div class="hmock">
+      <div class="mgl"></div>
+      <div class="mfr">
+        <div class="mbar"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><div class="ub">🔒 ma-boutique.ikikcode.fr</div></div>
+        <div class="mbody">
+          <div class="pc2"><div class="pi pi1">👟</div><div class="pin"><div class="pn">Sneakers Premium</div><div class="pp">89,00 €</div><button class="pb">Ajouter au panier</button></div></div>
+          <div class="pc2"><div class="pi pi2">👜</div><div class="pin"><div class="pn">Sac Cuir Italian</div><div class="pp">149,00 €</div><button class="pb">Ajouter au panier</button></div></div>
+          <div class="pc2"><div class="pi pi3">⌚</div><div class="pin"><div class="pn">Montre Vintage</div><div class="pp">219,00 €</div><button class="pb">Ajouter au panier</button></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="hero">
-  <h2>Création digitale & développement</h2>
-  <p>Sites web · Apps · Vidéo · Publicité</p>
-</section>
+  <!-- TICKER -->
+  <div class="tkw">
+    <div class="tki">
+      <span class="ti"><span class="ts">●</span>Boutique livrée en 24h</span><span class="ti"><span class="ts">●</span>Design professionnel</span><span class="ti"><span class="ts">●</span>Compatible mobile</span><span class="ti"><span class="ts">●</span>Paiement sécurisé</span><span class="ti"><span class="ts">●</span>50+ boutiques créées</span><span class="ti"><span class="ts">●</span>À partir de 39€</span><span class="ti"><span class="ts">●</span>Prêt à vendre</span><span class="ti"><span class="ts">●</span>SEO optimisé</span>
+      <span class="ti"><span class="ts">●</span>Boutique livrée en 24h</span><span class="ti"><span class="ts">●</span>Design professionnel</span><span class="ti"><span class="ts">●</span>Compatible mobile</span><span class="ti"><span class="ts">●</span>Paiement sécurisé</span><span class="ti"><span class="ts">●</span>50+ boutiques créées</span><span class="ti"><span class="ts">●</span>À partir de 39€</span><span class="ti"><span class="ts">●</span>Prêt à vendre</span><span class="ti"><span class="ts">●</span>SEO optimisé</span>
+    </div>
+  </div>
 
-<section class="section">
-  <h3>Qui sommes-nous ?</h3>
-  <p>
-    iKiKCode est un studio digital indépendant spécialisé
-    dans le développement web moderne et les applications de bureau dont vous avez besoin..
-  </p>
-</section>
+  <!-- HOW -->
+  <div class="sw" id="how">
+    <div class="sl">Processus</div>
+    <h2 class="st">Comment ça marche ?</h2>
+    <p class="ss">Un processus ultra-simple en 3 étapes pour avoir votre boutique en ligne.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="sn">1</div><div class="si">📦</div><h3>Envoyez vos produits</h3><p>Partagez photos, prix et descriptions via le formulaire ou par email. Zéro compétence technique requise.</p></div>
+      <div class="step reveal" style="transition-delay:.12s"><div class="sn">2</div><div class="si">⚙️</div><h3>On crée votre boutique</h3><p>Notre équipe conçoit et développe votre boutique e-commerce professionnelle en moins de 24 heures.</p></div>
+      <div class="step reveal" style="transition-delay:.24s"><div class="sn">3</div><div class="si">🚀</div><h3>Prêt à vendre !</h3><p>Vous recevez l'accès à votre boutique opérationnelle, optimisée et prête à accueillir vos premiers clients.</p></div>
+    </div>
+  </div>
 
-<section class="section alt">
-  <h3>Notre mission</h3>
-  <p>
-    Créer des solutions numériques performantes, esthétiques
-    et optimisées.
-  </p>
-</section>
+  <!-- STATS -->
+  <div class="statsb">
+    <div class="stat reveal"><div class="snum"><span class="cnt" data-target="50">0</span>+</div><div class="slbl">Boutiques créées</div></div>
+    <div class="stat reveal" style="transition-delay:.1s"><div class="snum"><span class="cnt" data-target="24">0</span>h</div><div class="slbl">Délai de livraison</div></div>
+    <div class="stat reveal" style="transition-delay:.2s"><div class="snum"><span class="cnt" data-target="100">0</span>%</div><div class="slbl">Clients satisfaits</div></div>
+    <div class="stat reveal" style="transition-delay:.3s"><div class="snum"><span class="cnt" data-target="39">0</span>€</div><div class="slbl">À partir de</div></div>
+  </div>
 
-<footer>© 2025 iKiKCode</footer>
+  <div class="sdiv"></div>
+
+  <!-- EXAMPLES -->
+  <div class="sw" id="examples">
+    <div class="sl">Portfolio</div>
+    <h2 class="st">Exemples de boutiques</h2>
+    <p class="ss">Naviguez librement sur une vraie boutique créée par IKIKCODE.</p>
+
+    <div class="lw reveal">
+      <div class="lh">
+        <div class="lpill"><span class="ldot"></span>Live — Naviguez librement</div>
+        <div class="lt"><h3>ProVacuum Pro — Boutique créée par IKIKCODE</h3><p>Interagissez directement avec ce vrai site e-commerce</p></div>
+        <a href="https://provacuum.lovable.app/" target="_blank" class="ol">Plein écran ↗</a>
+      </div>
+      <div class="iff">
+        <div class="ifb"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div><div class="iub">🔒 provacuum.lovable.app</div></div>
+        <iframe src="https://provacuum.lovable.app/" title="ProVacuum — IKIKCODE" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="pgrid">
+      <div class="pfc reveal">
+        <div class="pfp pv1"><div class="pvi"><div class="pvt"><div class="md" style="background:#ff5f57"></div><div class="md" style="background:#febc2e"></div><div class="md" style="background:#28c840"></div></div><div class="pvb"><div class="pvi2 c1">👟</div><div class="pvi2 c2">🧥</div><div class="pvi2 c3">👒</div><div class="pvi2 c4">👜</div></div></div></div>
+        <div class="pfi"><div class="pftag">Mode & Accessoires</div><h3>Luxe Paris Store</h3><p>Boutique premium, 18 produits, galerie photos et paiement sécurisé.</p></div>
+      </div>
+      <div class="pfc reveal" style="transition-delay:.1s">
+        <div class="pfp pv2"><div class="pvi"><div class="pvt"><div class="md" style="background:#ff5f57"></div><div class="md" style="background:#febc2e"></div><div class="md" style="background:#28c840"></div></div><div class="pvb"><div class="pvi2 c5">🕯️</div><div class="pvi2 c6">🌿</div><div class="pvi2 c7">🧴</div><div class="pvi2 c8">💆</div></div></div></div>
+        <div class="pfi"><div class="pftag">Bien-être & Beauté</div><h3>Nature & Zen Shop</h3><p>Boutique minimaliste, soins naturels et abonnements intégrés.</p></div>
+      </div>
+      <div class="pfc reveal" style="transition-delay:.2s">
+        <div class="pfp pv3"><div class="pvi"><div class="pvt"><div class="md" style="background:#ff5f57"></div><div class="md" style="background:#febc2e"></div><div class="md" style="background:#28c840"></div></div><div class="pvb"><div class="pvi2 c3">🖥️</div><div class="pvi2 c1">⌨️</div><div class="pvi2 c2">🖱️</div><div class="pvi2 c4">🎧</div></div></div></div>
+        <div class="pfi"><div class="pftag">Tech & Gaming</div><h3>TechZone FR</h3><p>Boutique tech avec fiches détaillées, filtres et comparateur.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sdiv"></div>
+
+  <!-- PRICING -->
+  <div class="sw" id="pricing">
+    <div class="sl">Tarifs</div>
+    <h2 class="st">Simple et transparent</h2>
+    <p class="ss">Choisissez l'offre adaptée à votre projet. Aucun frais caché, paiement unique.</p>
+    <div class="prgrid">
+      <div class="prc reveal">
+        <div class="pplan">Starter</div>
+        <div class="prprice"><sup>€</sup>39</div>
+        <div class="prdesc">Parfait pour démarrer votre activité en ligne</div>
+        <ul class="prfl"><li>Jusqu'à 5 produits</li><li>Design professionnel</li><li>Compatible mobile</li><li>Paiement en ligne intégré</li><li>Livraison en 24h</li></ul>
+        <a href="#contact" class="pbo">Commencer</a>
+      </div>
+      <div class="prc feat reveal" style="transition-delay:.1s">
+        <div class="fb">⭐ Le plus populaire</div>
+        <div class="pplan">Pro</div>
+        <div class="prprice"><sup>€</sup>69</div>
+        <div class="prdesc">Idéal pour développer votre activité sérieusement</div>
+        <ul class="prfl"><li>Jusqu'à 20 produits</li><li>Design sur-mesure premium</li><li>Compatible mobile</li><li>Paiement en ligne intégré</li><li>SEO de base inclus</li><li>Galerie photos avancée</li><li>Livraison en 24h</li></ul>
+        <a href="#contact" class="pbf">Commencer →</a>
+      </div>
+      <div class="prc reveal" style="transition-delay:.2s">
+        <div class="pplan">Business</div>
+        <div class="prprice"><sup>€</sup>99</div>
+        <div class="prdesc">Boutique complète et entièrement optimisée</div>
+        <ul class="prfl"><li>Produits illimités</li><li>Design premium exclusif</li><li>Compatible mobile</li><li>Paiement multi-devises</li><li>SEO avancé complet</li><li>Analytics & statistiques</li><li>Support prioritaire</li><li>Livraison en 24h</li></ul>
+        <a href="#contact" class="pbo">Commencer</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sdiv"></div>
+
+  <!-- WHY -->
+  <div class="sw" id="why">
+    <div class="sl">Avantages</div>
+    <h2 class="st">Pourquoi choisir IKIKCODE ?</h2>
+    <p class="ss">Tout ce qu'il faut pour vendre en ligne, sans les complications techniques.</p>
+    <div class="wgrid">
+      <div class="wc reveal"><div class="wi">⚡</div><h3>Création rapide</h3><p>Boutique livrée en moins de 24h. Commencez à vendre dès demain sans attendre.</p></div>
+      <div class="wc reveal" style="transition-delay:.1s"><div class="wi">🎨</div><h3>Design pro</h3><p>Boutiques conçues pour inspirer confiance et maximiser vos conversions.</p></div>
+      <div class="wc reveal" style="transition-delay:.2s"><div class="wi">📱</div><h3>Mobile-first</h3><p>70% des achats se font sur mobile. Vos clients sont servis parfaitement partout.</p></div>
+      <div class="wc reveal" style="transition-delay:.3s"><div class="wi">💳</div><h3>Prêt à vendre</h3><p>Paiement sécurisé, gestion des commandes — tout opérationnel dès le premier jour.</p></div>
+    </div>
+  </div>
+
+  <div class="sdiv"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="sl">Contact</div>
+    <h2 class="st">Lancez votre boutique</h2>
+    <p class="ss">Remplissez le formulaire et nous vous contactons dans les 2 heures.</p>
+    <div class="cw reveal">
+      <div id="formWrap">
+        <div class="fgrow">
+          <div class="fg"><label>Votre nom *</label><input type="text" id="fname" placeholder="Jean Dupont"/></div>
+          <div class="fg"><label>Votre email *</label><input type="email" id="femail" placeholder="jean@exemple.fr"/></div>
+        </div>
+        <div class="fg"><label>Votre téléphone</label><input type="tel" id="fphone" placeholder="06 12 34 56 78"/></div>
+        <div class="fg">
+          <label>Offre souhaitée</label>
+          <select id="fplan">
+            <option value="">-- Choisissez votre offre --</option>
+            <option value="Starter — 39€">Starter — 39€ (5 produits)</option>
+            <option value="Pro — 69€">Pro — 69€ (20 produits)</option>
+            <option value="Business — 99€">Business — 99€ (illimité)</option>
+            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+          </select>
+        </div>
+        <div class="fg"><label>Décrivez votre projet *</label><textarea id="fdesc" placeholder="Je vends des... Mon activité est... Je voudrais un site avec..."></textarea></div>
+        <div class="fg">
+          <label>Photos de vos produits <span style="color:var(--muted);font-weight:400">(optionnel)</span></label>
+          <div class="fup" onclick="document.getElementById('fi').click()">
+            <div class="fui">📸</div>
+            <p><span>Cliquez pour uploader</span> ou glissez vos photos ici</p>
+            <p style="font-size:.75rem;margin-top:.3rem;color:var(--muted)">JPG, PNG, WEBP — 10 Mo max par fichier</p>
+            <div class="fnames" id="fnames"></div>
+          </div>
+          <input type="file" id="fi" multiple accept="image/*" onchange="updateFiles()"/>
+        </div>
+        <button class="sbtn" onclick="submitForm()">Envoyer mon projet →</button>
+        <p class="fnote">🔒 Données confidentielles · Réponse garantie sous 2h · contact@ikikcode.fr</p>
+      </div>
+      <div class="smsg" id="smsg">
+        <div class="smi">✅</div>
+        <h3>Message bien reçu !</h3>
+        <p>Merci <strong id="sname"></strong> ! Notre équipe vous contactera à <strong id="semail"></strong> dans les 2 prochaines heures.<br/><br/>En attendant, suivez-nous pour découvrir nos créations !</p>
+        <div style="display:flex;gap:.7rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap">
+          <a href="https://www.instagram.com/ikikcode_fr/" target="_blank" class="bp" style="font-size:.82rem;padding:10px 20px">📸 Instagram</a>
+          <a href="https://www.youtube.com/channel/UCeaaQXadNuZ3GwSbtZEUcIw" target="_blank" class="bs" style="font-size:.82rem;padding:10px 20px">▶️ YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sdiv"></div>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sl">FAQ</div>
+    <h2 class="st">Questions fréquentes</h2>
+    <p class="ss">Trouvez rapidement votre réponse. Sinon, posez votre question directement !</p>
+
+    <div class="ftabs">
+      <button class="ftab active" onclick="filterFaq('all',this)">Toutes</button>
+      <button class="ftab" onclick="filterFaq('delai',this)">Délais</button>
+      <button class="ftab" onclick="filterFaq('produits',this)">Produits</button>
+      <button class="ftab" onclick="filterFaq('technique',this)">Technique</button>
+      <button class="ftab" onclick="filterFaq('paiement',this)">Paiement</button>
+    </div>
+
+    <div class="fitems">
+      <div class="fi reveal" data-cat="delai">
+        <button class="fq" onclick="toggleFaq(this)">Combien de temps pour créer ma boutique ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai">Votre boutique est livrée en <strong>moins de 24 heures</strong> après réception de vos photos et informations produits. Pour les offres Business avec des demandes spécifiques, comptez 48h maximum. Vous recevez un lien de prévisualisation avant la mise en ligne finale.</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.05s" data-cat="produits">
+        <button class="fq" onclick="toggleFaq(this)">Combien de produits puis-je avoir ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai"><strong>Starter</strong> = 5 produits · <strong>Pro</strong> = 20 produits · <strong>Business</strong> = illimité. Si votre catalogue grandit après livraison, nous pouvons ajouter des produits à tarif préférentiel. Contactez-nous pour un devis personnalisé.</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.1s" data-cat="produits">
+        <button class="fq" onclick="toggleFaq(this)">Comment envoyer mes photos de produits ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai">Via le <strong>formulaire ci-dessus</strong> (upload direct), par email à <a href="mailto:contact@ikikcode.fr">contact@ikikcode.fr</a>, ou via WeTransfer / Google Drive pour les fichiers volumineux. Pas besoin de photos pro — des photos smartphone suffisent !</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.15s" data-cat="technique">
+        <button class="fq" onclick="toggleFaq(this)">Puis-je modifier ma boutique après livraison ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai">Oui ! Vous recevez un <strong>accès administrateur complet</strong> pour gérer produits, stocks, commandes et prix en totale autonomie. Pour des modifications de design importantes, notre équipe est disponible sur devis.</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.2s" data-cat="paiement">
+        <button class="fq" onclick="toggleFaq(this)">Le paiement en ligne est-il sécurisé ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai">Absolument. Toutes nos boutiques intègrent <strong>Stripe ou PayPal</strong>, certifiés PCI DSS. Les données bancaires ne transitent jamais par votre site. Vos clients peuvent payer par carte, Apple Pay ou Google Pay en toute sécurité.</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.25s" data-cat="paiement">
+        <button class="fq" onclick="toggleFaq(this)">Comment récupérer l'argent de mes ventes ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai">L'argent est versé directement sur votre compte bancaire via Stripe, généralement sous <strong>2 à 7 jours ouvrés</strong>. IKIKCODE ne prélève <strong>aucune commission</strong> sur vos ventes — vous payez uniquement les frais Stripe (~1,5% + 0,25€ par transaction).</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.3s" data-cat="technique">
+        <button class="fq" onclick="toggleFaq(this)">Aurai-je mon propre nom de domaine ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai">Oui. Si vous avez déjà un domaine, nous le configurons <strong>gratuitement</strong>. Sinon, nous vous aidons à en choisir un (~10-15€/an). Votre boutique sera sur votre adresse personnalisée, ex : <em>maboutique.fr</em>.</div></div>
+      </div>
+      <div class="fi reveal" style="transition-delay:.35s" data-cat="delai">
+        <button class="fq" onclick="toggleFaq(this)">Que se passe-t-il après ma commande ?<span class="farr"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg></span></button>
+        <div class="fa"><div class="fai"><strong>1)</strong> Nous vous contactons sous 2h pour confirmer les détails. <strong>2)</strong> Vous nous envoyez vos photos et infos. <strong>3)</strong> Nous créons votre boutique. <strong>4)</strong> Vous validez un aperçu. <strong>5)</strong> Votre boutique est en ligne et vous recevez vos accès !</div></div>
+      </div>
+    </div>
+
+    <!-- ASK QUESTION -->
+    <div class="askw reveal">
+      <h3>Vous n'avez pas trouvé votre réponse ? 🤔</h3>
+      <p>Posez votre question directement ici — nous vous répondons dans les 2 heures.</p>
+      <div class="askf">
+        <input type="text" id="askQ" placeholder="Votre question sur nos services..."/>
+        <button class="askbtn" onclick="sendQ()">Envoyer →</button>
+      </div>
+      <div class="askok" id="askOk">✅ Question envoyée ! Réponse sous 2h à votre email ou sur contact@ikikcode.fr</div>
+    </div>
+  </section>
+
+  <div class="sdiv"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fin">
+      <div class="ftop">
+        <div class="fbrand">
+          <a href="#" class="flogo">IKIK<span>CODE</span></a>
+          <p>Nous créons votre boutique e-commerce professionnelle en moins de 24h. Envoyez vos photos, on s'occupe du reste.</p>
+          <div class="fsocs">
+            <a href="https://www.instagram.com/ikikcode_fr/" target="_blank" class="sl2" title="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UCeaaQXadNuZ3GwSbtZEUcIw" target="_blank" class="sl2" title="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://wa.me/33786068230" target="_blank" class="sl2" title="WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+            <a href="mailto:contact@ikikcode.fr" class="sl2" title="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="fcol">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#how">Comment ça marche</a></li>
+            <li><a href="#examples">Exemples</a></li>
+            <li><a href="#pricing">Tarifs</a></li>
+            <li><a href="#why">Pourquoi IKIKCODE</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="fcol">
+          <h4>Offres</h4>
+          <ul>
+            <li><a href="#pricing">Starter — 39€</a></li>
+            <li><a href="#pricing">Pro — 69€</a></li>
+            <li><a href="#pricing">Business — 99€</a></li>
+          </ul>
+        </div>
+        <div class="fcol">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:contact@ikikcode.fr">contact@ikikcode.fr</a></li>
+            <li><a href="tel:+33786068230">07 86 06 82 30</a></li>
+            <li><a href="https://www.instagram.com/ikikcode_fr/" target="_blank">Instagram</a></li>
+            <li><a href="https://www.youtube.com/channel/UCeaaQXadNuZ3GwSbtZEUcIw" target="_blank">YouTube</a></li>
+            <li><a href="#contact">Démarrer un projet</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="fbot">
+        <p>© 2025 IKIKCODE · Tous droits réservés · ikikcode.fr</p>
+        <p>Fait avec ❤️ pour les entrepreneurs français</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING BUTTONS -->
+  <div class="pf">
+    <a href="https://wa.me/33786068230?text=Bonjour%20IKIKCODE%2C%20je%20souhaite%20cr%C3%A9er%20ma%20boutique%20e-commerce%20!" class="wab" target="_blank" title="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      <span class="wat">WhatsApp · 07 86 06 82 30</span>
+    </a>
+    <a href="tel:+33786068230" class="cab" title="Appeler">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.5 16z"/></svg>
+      Appeler
+    </a>
+  </div>
+
+  <script>
+    // NAV
+    function toggleMenu(){document.getElementById('mob').classList.toggle('open');document.getElementById('burger').classList.toggle('open')}
+    function closeMenu(){document.getElementById('mob').classList.remove('open');document.getElementById('burger').classList.remove('open')}
+    document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))closeMenu()});
+    window.addEventListener('scroll',()=>{document.querySelector('nav').style.padding=window.scrollY>50?'12px 5%':'16px 5%'});
+
+    // REVEAL
+    const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+    // COUNTERS
+    const co=new IntersectionObserver(es=>{
+      es.forEach(e=>{
+        if(e.isIntersecting){
+          const el=e.target,t=+el.dataset.target;
+          let s=null;
+          function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/1800,1),ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t);if(p<1)requestAnimationFrame(step);else el.textContent=t}
+          requestAnimationFrame(step);co.unobserve(el);
+        }
+      });
+    },{threshold:.5});
+    document.querySelectorAll('.cnt').forEach(c=>co.observe(c));
+
+    // FAQ ACCORDION
+    function toggleFaq(btn){
+      const fi=btn.closest('.fi'),was=fi.classList.contains('open');
+      document.querySelectorAll('.fi').forEach(i=>i.classList.remove('open'));
+      if(!was)fi.classList.add('open');
+    }
+
+    // FAQ FILTER
+    function filterFaq(cat,tab){
+      document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.fi').forEach(fi=>{
+        if(cat==='all'||fi.dataset.cat===cat)fi.classList.remove('hidden');
+        else{fi.classList.add('hidden');fi.classList.remove('open')}
+      });
+    }
+
+    // FILE UPLOAD
+    function updateFiles(){
+      const f=document.getElementById('fi').files,el=document.getElementById('fnames');
+      el.textContent=f.length?`✓ ${f.length} fichier(s) : ${Array.from(f).map(x=>x.name).join(', ')}`:'';
+    }
+    const fu=document.querySelector('.fup');
+    fu.addEventListener('dragover',e=>{e.preventDefault();fu.style.borderColor='var(--blue)'});
+    fu.addEventListener('dragleave',()=>{fu.style.borderColor=''});
+    fu.addEventListener('drop',e=>{e.preventDefault();fu.style.borderColor='';document.getElementById('fi').files=e.dataTransfer.files;updateFiles()});
+
+    // MAIN FORM
+    async function submitForm(){
+      const name=document.getElementById('fname').value.trim();
+      const email=document.getElementById('femail').value.trim();
+      const phone=document.getElementById('fphone').value.trim();
+      const plan=document.getElementById('fplan').value;
+      const desc=document.getElementById('fdesc').value.trim();
+      const btn=document.querySelector('.sbtn');
+      if(!name||!email||!desc){alert('Merci de remplir : nom, email et description.');return}
+      if(!email.includes('@')){alert('Email invalide.');return}
+      btn.textContent='Envoi en cours…';btn.disabled=true;
+      const fd=new FormData();
+      fd.append('name',name);fd.append('email',email);
+      fd.append('phone',phone||'Non renseigné');
+      fd.append('plan',plan||'Non précisé');
+      fd.append('message',desc);
+      const files=document.getElementById('fi').files;
+      for(let i=0;i<files.length;i++)fd.append('photos',files[i]);
+      try{
+        const res=await fetch('https://formspree.io/f/mnjbebbg',{method:'POST',body:fd,headers:{'Accept':'application/json'}});
+        if(res.ok){
+          document.getElementById('sname').textContent=name;
+          document.getElementById('semail').textContent=email;
+          document.getElementById('formWrap').style.display='none';
+          document.getElementById('smsg').style.display='block';
+        } else {
+          const d=await res.json();
+          alert('Erreur : '+(d.error||'Réessayez ou écrivez à contact@ikikcode.fr'));
+          btn.textContent='Envoyer mon projet →';btn.disabled=false;
+        }
+      }catch{
+        alert('Erreur réseau. Contactez-nous : contact@ikikcode.fr ou 07 86 06 82 30');
+        btn.textContent='Envoyer mon projet →';btn.disabled=false;
+      }
+    }
+
+    // ASK QUESTION
+    async function sendQ(){
+      const q=document.getElementById('askQ').value.trim();
+      if(!q){alert('Veuillez écrire votre question.');return}
+      const btn=document.querySelector('.askbtn');
+      btn.textContent='Envoi…';btn.disabled=true;
+      const fd=new FormData();
+      fd.append('name','❓ Question FAQ');
+      fd.append('email','noreply@ikikcode.fr');
+      fd.append('message','QUESTION FAQ : '+q);
+      try{
+        const res=await fetch('https://formspree.io/f/mnjbebbg',{method:'POST',body:fd,headers:{'Accept':'application/json'}});
+        if(res.ok){document.getElementById('askOk').style.display='block';document.getElementById('askQ').value=''}
+      }catch{}
+      btn.textContent='Envoyer →';btn.disabled=false;
+    }
+    document.getElementById('askQ').addEventListener('keydown',e=>{if(e.key==='Enter')sendQ()});
+  </script>
 </body>
 </html>
-
-
-
